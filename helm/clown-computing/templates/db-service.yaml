@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.database.service.name }}
+  name: db
   labels:
-    app: {{ .Values.database.service.name }}
+    app: milanuncios
 spec:
   ports:
     - port: 3306
       targetPort: 3306
       protocol: TCP
-      name: {{ .Values.database.service.name }}
+      name: db
   selector:
-    type: {{ .Values.database.service.name }}
+    type: db
   type: ClusterIP

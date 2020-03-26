@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.database.service.name }}
+  name: milanuncios-db
   labels:
-    app: {{ .Values.application.service.name }}
+    app: milanuncios
     type: db
 spec:
   selector:
@@ -14,19 +14,19 @@ spec:
     type: Recreate
   template:
     metadata:
-      name: {{ .Values.database.service.name }}
+      name: milanuncios-db
       labels:
-        app: {{ .Values.application.service.name }}
+        app: milanuncios
         type: db
     spec:
       containers:
       - name: database
-        image: mysql:5.6
+        image: {{ .Values.database.image}}
         env:
           - name: MYSQL_ROOT_PASSWORD
-            value: pass
+            value: {{ .Values.database.pass }}
           - name: MYSQL_DATABASE
-            value: test
+            value: {{ .Values.database.db }}
         ports:
         - containerPort: 3306
         volumeMounts:

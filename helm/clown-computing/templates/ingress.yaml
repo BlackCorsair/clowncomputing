@@ -11,5 +11,5 @@ spec:
       paths:
       - path: {{ .Values.ingress.path }}
         backend:
-          serviceName: milan
+          serviceName: milanuncios
           servicePort: 8080

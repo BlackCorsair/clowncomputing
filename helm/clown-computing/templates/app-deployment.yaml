@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.application.service.name }}
+  name: milanuncios
   labels:
-    app: {{ .Values.application.service.name }}
+    app: milanuncios
 spec:
   selector:
     matchLabels:
-      app: {{ .Values.application.service.name }}
+      app: milanuncios
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
-      name: {{ .Values.application.service.name }}
+      name: milanuncios
       labels:
-        app: {{ .Values.application.service.name }}
+        app: milanuncios
     spec:
       containers:
       - name: java
         image: {{ .Values.application.image }}
         env:
-          - name: {{ .Values.application.password.name }}
-            value: {{ .Values.application.password.value }}
-          - name: {{ .Values.application.database.name }}
-            value: {{ .Values.application.database.value }}
+          - name: MYSQL_ROOT_PASSWORD
+            value: {{ .Values.database.pass }}
+          - name: MYSQL_DATABASE
+            value: {{ .Values.database.db }}
