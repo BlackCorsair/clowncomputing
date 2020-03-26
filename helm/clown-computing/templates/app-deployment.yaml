@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.application.service.name }}
+  labels:
+    app: {{ .Values.application.service.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.application.service.name }}
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      name: {{ .Values.application.service.name }}
+      labels:
+        app: {{ .Values.application.service.name }}
+    spec:
+      containers:
+      - name: java
+        image: {{ .Values.application.image }}
+        env:
+          - name: {{ .Values.application.password.name }}
+            value: {{ .Values.application.password.value }}
+          - name: {{ .Values.application.database.name }}
+            value: {{ .Values.application.database.value }}

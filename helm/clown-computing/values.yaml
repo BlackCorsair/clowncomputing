@@ -1,0 +1,30 @@
+# Default values for clown-computing.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+application:
+  service:
+    name: milanuncios-web
+  image: codeurjc/java-webapp-bbdd:v2
+  env:
+  password:
+    name: MYSQL_ROOT_PASSWORD
+    value: pass
+  database:
+    name: MYSQL_DATABASE
+    value: test
+
+database:
+  service:
+    name: milanuncios-db
+  image: mysql:5.6
+  password:
+    name: MYSQL_ROOT_PASSWORD
+    value: pass
+  database:
+    name: MYSQL_DATABASE
+    value: test
+
+ingress:
+  host: www.sampledomain.com
+  path: /

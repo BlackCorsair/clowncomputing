@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.database.service.name }}
+  labels:
+    app: {{ .Values.database.service.name }}
+spec:
+  selector:
+    matchLabels:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      name: {{ .Values.database.service.name }}
+      labels:
+        app: {{ .Values.database.service.name }}
+    spec:
+      containers:
+      - name: database
+        image: {{ .Values.database.image }}
+        env:
+          - name: {{ .Values.database.password.name }}
+            value: {{ .Values.database.password.value }}
+          - name: {{ .Values.database.database.name }}
+            value: {{ .Values.database.database.value }}
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - mountPath: "/var/lib/mysql"
+          name: db-volume
+      volumes:
+      - name: db-volume
+        persistentVolumeClaim:
+          claimName: pvc-db-volume
