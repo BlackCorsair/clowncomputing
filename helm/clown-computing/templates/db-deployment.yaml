@@ -3,10 +3,12 @@ kind: Deployment
 metadata:
   name: {{ .Values.database.service.name }}
   labels:
-    app: {{ .Values.database.service.name }}
+    app: {{ .Values.application.service.name }}
+    type: db
 spec:
   selector:
     matchLabels:
+      type: db
   replicas: 1
   strategy:
     type: Recreate
@@ -14,16 +16,17 @@ spec:
     metadata:
       name: {{ .Values.database.service.name }}
       labels:
-        app: {{ .Values.database.service.name }}
+        app: {{ .Values.application.service.name }}
+        type: db
     spec:
       containers:
       - name: database
-        image: {{ .Values.database.image }}
+        image: mysql:5.6
         env:
-          - name: {{ .Values.database.password.name }}
-            value: {{ .Values.database.password.value }}
-          - name: {{ .Values.database.database.name }}
-            value: {{ .Values.database.database.value }}
+          - name: MYSQL_ROOT_PASSWORD
+            value: pass
+          - name: MYSQL_DATABASE
+            value: test
         ports:
         - containerPort: 3306
         volumeMounts:
