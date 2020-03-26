@@ -1,7 +1,3 @@
-# Default values for clown-computing.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
 application:
   image: codeurjc/java-webapp-bbdd:v2
 
